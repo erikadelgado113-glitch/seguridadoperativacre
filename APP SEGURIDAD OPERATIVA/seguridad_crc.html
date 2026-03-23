@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeOps CRC - Junta Provincial Pichincha</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        :root {
+            /* Gama de colores pastel basada en el rojo de la Cruz Roja */
+            --crc-red-pastel: #ffcccc; /* Fondo muy suave */
+            --crc-red-main: #ed1b24; /* Rojo oficial para acentos */
+            --crc-red-light: #ff9999; /* Rojo pastel medio */
+            --crc-red-dark: #c41219; /* Para texto sobre fondo claro */
+            --pastel-gray: #f2f2f2;
+            --pastel-blue: #e3f2fd;
+            --pastel-green: #e8f5e9;
+            --dark-text: #333;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--crc-red-pastel);
+            margin: 0;
+            padding: 10px;
+            color: var(--dark-text);
+        }
+
+        .container {
+            max-width: 650px;
+            margin: auto;
+            background: var(--white);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        /* Encabezado con logo e identificación */
+        header {
+            text-align: center;
+            border-bottom: 4px solid var(--crc-red-main);
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+        }
+
+        .logo-placeholder {
+            /* Aquí iría el logo. Usamos un marcador visual profesional */
+            width: 100px;
+            height: 100px;
+            margin: auto;
+            background-color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--pastel-gray);
+            font-size: 50px;
+            color: var(--crc-red-main);
+            margin-bottom: 10px;
+        }
+        /* Para usar el logo real, descomenta la siguiente línea y añade la imagen */
+        /* .logo-placeholder { background-image: url('logo_pichincha.png'); background-size: contain; background-repeat: no-repeat; background-position: center; text-indent: -9999px; } */
+
+        header h1 {
+            color: var(--crc-red-main);
+            margin: 5px 0;
+            font-size: 26px;
+        }
+
+        header h2 {
+            color: var(--dark-text);
+            margin: 0;
+            font-size: 18px;
+            font-weight: normal;
+        }
+
+        header .area-tag {
+            background-color: var(--crc-red-main);
+            color: var(--white);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+/* ... aquí termina el código anterior ... */
+
+/* PASO 2: EL DIBUJO DE LA CRUZ ROJA */
+.logo-container {
+    width: 80px;
+    height: 80px;
+    margin: 10px auto;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border: 1px solid var(--pastel-gray);
+}
+
+.cruz-roja {
+    position: relative;
+    width: 40px; /* Ajusté un poco el tamaño para que quepa mejor */
+    height: 40px;
+}
+
+.cruz-roja .horizontal {
+    position: absolute;
+    top: 14px; 
+    left: 0;
+    width: 40px;
+    height: 12px;
+    background-color: var(--crc-red-main);
+}
+
+.cruz-roja .vertical {
+    position: absolute;
+    left: 14px; 
+    top: 0;
+    width: 12px;
+    height: 40px;
+    background-color: var(--crc-red-main);
+}
+
+/* AQUÍ EMPIEZA LO QUE YA TENÍAS: Estilos generales de sección */
+.section {
+    background-color: var(--pastel-gray);
+    ...
+
+        /* Estilos generales de sección */
+        .section {
+            background-color: var(--pastel-gray);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border-left: 6px solid var(--crc-red-light);
+        }
+
+        .section h3 {
+            margin-top: 0;
+            color: var(--crc-red-dark);
+            border-bottom: 2px solid var(--crc-red-pastel);
+            padding-bottom: 10px;
+        }
+
+        /* Formularios y elementos */
+        label {
+            display: block;
+            margin: 15px 0 5px;
+            font-weight: bold;
+            color: var(--dark-text);
+        }
+
+        select, input[type="text"], button {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        select:focus, input[type="text"]:focus {
+            border-color: var(--crc-red-main);
+            outline: none;
+            box-shadow: 0 0 5px rgba(237, 27, 36, 0.3);
+        }
+
+        /* Botones */
+        button {
+            background-color: var(--crc-red-main);
+            color: var(--white);
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: background-color 0.3s, transform 0.1s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        button:hover {
+            background-color: var(--crc-red-dark);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        button.btn-pdf {
+            background-color: var(--white);
+            color: var(--crc-red-main);
+            border: 2px solid var(--crc-red-main);
+            margin-top: 10px;
+        }
+
+        button.btn-pdf:hover {
+            background-color: var(--crc-red-pastel);
+        }
+
+        /* Módulos específicos */
+        .pap-box {
+            background-color: var(--pastel-blue);
+            border-left-color: #007bff;
+        }
+        .pap-box h3 { color: #0056b3; border-bottom-color: #b3d7ff; }
+
+        .acceso-box {
+            background-color: var(--pastel-green);
+            border-left-color: var(--green);
+        }
+        .acceso-box h3 { color: #155724; border-bottom-color: #c3e6cb; }
+
+        .pilar {
+            display: flex;
+            align-items: center;
+            background: rgba(255,255,255,0.7);
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 10px;
+            font-size: 15px;
+        }
+        .pilar input {
+            width: 20px;
+            height: 20px;
+            margin-right: 15px;
+            accent-color: var(--crc-red-main);
+        }
+
+        /* Tabla de historial */
+        .table-container {
+            overflow-x: auto;
+            background: var(--white);
+            border-radius: 10px;
+            padding: 5px;
+            border: 1px solid var(--pastel-gray);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            min-width: 500px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid var(--pastel-gray);
+        }
+
+        th {
+            background-color: var(--crc-red-main);
+            color: var(--white);
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background-color: var(--crc-red-pastel);
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="logo-container">
+    <div class="cruz-roja">
+        <div class="horizontal"></div>
+        <div class="vertical"></div>
+    </div>
+</div>
+        <h2>Junta Provincial Pichincha</h2>
+        <div class="area-tag">Seguridad Operativa</div>
+    </header>
+
+    <div class="section">
+        <h3>1. Análisis de Riesgo Operativo</h3>
+        <label>Ubicación / Nombre de la Misión:</label>
+        <input type="text" id="mision" placeholder="Ej: Operativo Centro Histórico">
+        
+        <label>Evaluación de la Amenaza:</label>
+        <select id="amenaza">
+            <option value="1">🟢 Bajo (Entorno Seguro)</option>
+            <option value="3">🟡 Medio (Tensión Social)</option>
+            <option value="5">🔴 Alto (Inseguridad Crítica)</option>
+        </select>
+        
+        <button onclick="registrarEvaluacion()">REGISTRAR EVALUACIÓN</button>
+    </div>
+
+    <div class="section acceso-box">
+        <h3>2. Checklist Acceso Seguro</h3>
+        <p style="font-size: 14px; color: #555; margin-bottom: 15px;">Verifica estos puntos críticos antes y durante la operación:</p>
+        <div class="pilar"><input type="checkbox" id="p1"> 👤 Auto-protección (Equipo OK)</div>
+        <div class="pilar"><input type="checkbox" id="p2"> 📛 Identificación (Emblema Visible)</div>
+        <div class="pilar"><input type="checkbox" id="p3"> 🤝 Aceptación (Comunidad Informada)</div>
+        <div class="pilar"><input type="checkbox" id="p4"> 📻 Comunicación (Base Notificada)</div>
+    </div>
+
+    <div class="section pap-box">
+        <h3>🧠 Primeros Auxilios Psicológicos</h3>
+        <label>Estado Emocional del Equipo:</label>
+        <select id="pap_status">
+            <option value="Estable">✅ Estable / Operativo</option>
+            <option value="Ansiedad">⚠️ Ansiedad detectada</option>
+            <option value="Critico">🚨 Crítico (Requiere intervención)</option>
+        </select>
+    </div>
+
+    <div class="section">
+        <h3>4. Historial de Misiones (Local)</h3>
+        <div class="table-container">
+            <table id="tablaHistorial">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Misión</th>
+                        <th>Riesgo</th>
+                        <th>PAP</th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpoTabla">
+                    </tbody>
+            </table>
+        </div>
+        <button class="btn-pdf" onclick="descargarPDF()">📥 DESCARGAR REPORTE PDF</button>
+        <button style="background-color: #666; font-size: 12px; padding: 8px; margin-top: 10px;" onclick="borrarHistorial()">🗑️ Borrar 
+<div class="section" style="background-color: #fff9db; border-left-color: #fcc419;">
+        <h3 style="color: #856404; border-bottom-color: #fff3bf;">🕒 Control de Fatiga y Turno</h3>
+        <p style="font-size: 13px;">Registra el inicio de tu guardia para monitorear el nivel de alerta.</p>
+        
+        <div id="reloj-guardia" style="font-size: 18px; font-weight: bold; text-align: center; margin: 10px 0; color: var(--crc-red-main);">
+            Horas activas: 00:00:00
+        </div>
+        
+        <div style="display: flex; gap: 10px;">
+            <button onclick="iniciarGuardia()" id="btn-inicio" style="background-color: #40c057;">INICIAR TURNO</button>
+            <button onclick="finalizarGuardia()" id="btn-fin" style="background-color: #fa5252;" disabled>FINALIZAR</button>
+        </div>
+        <p id="alerta-fatiga" style="font-size: 12px; color: #d9480f; margin-top: 10px; font-weight: bold; display: none;">
+            ⚠️ ALERTA: Has superado las 12h de turno. Riesgo de fatiga alto. Solicita relevo.
+        </p>
+    </div>
+
+    <div class="section" style="background-color: #f1f3f5; border-left-color: #495057;">
+        <h3 style="color: #212529; border-bottom-color: #dee2e6;">📻 Diccionario de Claves Radiales</h3>
+        <input type="text" id="busquedaClave" placeholder="Buscar clave (ej: 10-4)..." onkeyup="buscarClave()" style="margin-bottom: 10px;">
+        
+        <div class="table-container" style="max-height: 200px; overflow-y: auto;">
+            <table id="tablaClaves">
+                <thead>
+                    <tr><th>Clave</th><th>Significado</th></tr>
+                </thead>
+               <tbody id="cuerpoClaves">
+    <tr style="background-color: #f1f3f5;"><td colspan="2"><small><b>CÓDIGOS Q (TÉCNICOS)</b></small></td></tr>
+    <tr><td><b>QAP</b></td><td>Estar atento / Pendiente en frecuencia</td></tr>
+    <tr><td><b>QRA</b></td><td>Nombre de la estación / Operador</td></tr>
+    <tr><td><b>QRB</b></td><td>Distancia entre estaciones</td></tr>
+    <tr><td><b>QRG</b></td><td>Frecuencia exacta</td></tr>
+    <tr><td><b>QRL</b></td><td>Estar ocupado (No interferir)</td></tr>
+    <tr><td><b>QRM</b></td><td>Interferencia de otra estación</td></tr>
+    <tr><td><b>QRN</b></td><td>Interferencia estática (Atmosférica)</td></tr>
+    <tr><td><b>QRX</b></td><td>Espere un momento / Stand-by</td></tr>
+    <tr><td><b>QRY</b></td><td>Turno para transmitir</td></tr>
+    <tr><td><b>QRZ</b></td><td>¿Quién me llama?</td></tr>
+    <tr><td><b>QSL</b></td><td>Acuse de recibo / Confirmado</td></tr>
+    <tr><td><b>QSO</b></td><td>Comunicación directa entre dos</td></tr>
+    <tr><td><b>QSP</b></td><td>Retransmitir mensaje (Puente)</td></tr>
+    <tr><td><b>QTH</b></td><td>Ubicación geográfica / Domicilio</td></tr>
+    <tr><td><b>QTR</b></td><td>Hora exacta</td></tr>
+</tbody>
+            </table>
+        </div>
+    </div>
+Historial</button>
+    </div>
+</div>
+
+<script>
+    // --- LÓGICA DE LA BASE DE DATOS LOCAL ---
+    function registrarEvaluacion() {
+        const m = document.getElementById('mision').value || "Misión sin nombre";
+        const a = document.getElementById('amenaza').value;
+        const p = document.getElementById('pap_status').value;
+        
+        // Obtener fecha y hora local
+        const ahora = new Date();
+        const fecha = ahora.toLocaleDateString();
+        const hora = ahora.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
+        let riesgo = "";
+        if(a == "1") riesgo = "VERDE";
+        else if(a == "3") riesgo = "AMARILLO";
+        else riesgo = "ROJO";
+        
+        const data = { 
+            timestamp: `${fecha} ${hora}`, 
+            mision: m, 
+            riesgo: riesgo, 
+            pap: p 
+        };
+
+        let historial = JSON.parse(localStorage.getItem('crc_pichincha_data')) || [];
+        historial.push(data);
+        localStorage.setItem('crc_pichincha_data', JSON.stringify(historial));
+        
+        renderTabla();
+        alert("Evaluación registrada correctamente en el historial local.");
+        document.getElementById('mision').value = ''; // Limpiar campo
+    }
+
+    function renderTabla() {
+        const h = JSON.parse(localStorage.getItem('crc_pichincha_data')) || [];
+        const tbody = document.getElementById('cuerpoTabla');
+        tbody.innerHTML = h.map(d => `
+            <tr>
+                <td>${d.timestamp}</td>
+                <td>${d.mision}</td>
+                <td style="font-weight:bold; color: ${d.riesgo === 'ROJO' ? 'var(--crc-red-main)' : d.riesgo === 'AMARILLO' ? '#ff9900' : 'var(--green)'};">${d.riesgo}</td>
+                <td>${d.pap}</td>
+            </tr>
+        `).join('');
+    }
+
+    function borrarHistorial() {
+        if(confirm("¿Estás seguro de que deseas borrar todo el historial de misiones?")) {
+            localStorage.removeItem('crc_pichincha_data');
+            renderTabla();
+        }
+    }
+
+    // --- GENERADOR DE PDF ---
+    function descargarPDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        const h = JSON.parse(localStorage.getItem('crc_pichincha_data')) || [];
+
+        // Encabezado del PDF
+        doc.setFontSize(20);
+        doc.setTextColor(237, 27, 36); // Rojo Cruz Roja
+        doc.text("CRUZ ROJA ECUATORIANA", 105, 20, {align: 'center'});
+        
+        doc.setFontSize(14);
+        doc.setTextColor(0, 0, 0);
+        doc.text("Junta Provincial Pichincha", 105, 28, {align: 'center'});
+        
+        doc.setFontSize(12);
+        doc.setFont("", "bold");
+        doc.text("Área de Seguridad Operativa", 105, 35, {align: 'center'});
+        
+        doc.setLineWidth(0.5);
+        doc.setDrawColor(237, 27, 36);
+        doc.line(20, 40, 190, 40);
+
+        // Título del reporte
+        doc.setFontSize(16);
+        doc.setFont("", "normal");
+        doc.text("Reporte de Evaluaciones de Campo", 20, 50);
+
+        // Contenido
+        doc.setFontSize(10);
+        let y = 60;
+        
+        if(h.length === 0) {
+            doc.text("No hay evaluaciones registradas.", 20, y);
+        } else {
+            // Cabeceras de tabla simples
+            doc.setFont("", "bold");
+            doc.text("Fecha/Hora", 20, y);
+            doc.text("Misión", 60, y);
+            doc.text("Riesgo", 130, y);
+            doc.text("PAP", 160, y);
+            doc.setFont("", "normal");
+            y += 8;
+
+            h.forEach((d, i) => {
+                // Verificar si necesitamos una nueva página
+                if (y > 280) {
+                    doc.addPage();
+                    y = 20; // Reiniciar Y en la nueva página
+                }
+                
+                doc.text(d.timestamp, 20, y);
+                doc.text(doc.splitTextToSize(d.mision, 65), 60, y); // Ajustar texto largo
+                doc.text(d.riesgo, 130, y);
+                doc.text(d.pap, 160, y);
+                y += 10;
+            });
+        }
+
+        // Pie de página
+        doc.setFontSize(8);
+        doc.setTextColor(100, 100, 100);
+        doc.text(`Generado automáticamente por SafeOps CRC - ${new Date().toLocaleString()}`, 105, 290, {align: 'center'});
+
+        doc.save("Reporte_Seguridad_CRC_Pichincha.pdf");
+    }
+
+    // --- MODO OFFLINE (SERVICE WORKER) ---
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('sw.js').then(registration => {
+                console.log('ServiceWorker registrado con éxito: ', registration.scope);
+            }, err => {
+                console.log('Error en el registro de ServiceWorker: ', err);
+            });
+        });
+    }
+
+    // Cargar historial al iniciar
+    window.onload = renderTabla;
+// --- LÓGICA DE FATIGA ---
+    let cronometro;
+    let tiempoInicio;
+
+    function iniciarGuardia() {
+        tiempoInicio = Date.now();
+        localStorage.setItem('inicio_turno', tiempoInicio);
+        document.getElementById('btn-inicio').disabled = true;
+        document.getElementById('btn-fin').disabled = false;
+        
+        cronometro = setInterval(actualizarReloj, 1000);
+    }
+
+    function actualizarReloj() {
+        const inicio = localStorage.getItem('inicio_turno');
+        if (!inicio) return;
+
+        const transcurrido = Date.now() - inicio;
+        const horas = Math.floor(transcurrido / 3600000);
+        const minutos = Math.floor((transcurrido % 3600000) / 60000);
+        const segundos = Math.floor((transcurrido % 60000) / 1000);
+
+        document.getElementById('reloj-guardia').innerText = 
+            `Horas activas: ${String(horas).padStart(2, '0')}:${String(minutos).padStart(2, '0')}:${String(segundos).padStart(2, '0')}`;
+
+        // Alerta de fatiga (ejemplo a las 12 horas)
+        if (horas >= 12) {
+            document.getElementById('alerta-fatiga').style.display = 'block';
+            document.getElementById('reloj-guardia').style.color = 'black';
+            document.getElementById('reloj-guardia').style.backgroundColor = '#ffec99';
+        }
+    }
+
+    function finalizarGuardia() {
+        if(confirm("¿Deseas finalizar el registro de turno?")) {
+            clearInterval(cronometro);
+            localStorage.removeItem('inicio_turno');
+            document.getElementById('reloj-guardia').innerText = "Horas activas: 00:00:00";
+            document.getElementById('btn-inicio').disabled = false;
+            document.getElementById('btn-fin').disabled = true;
+            document.getElementById('alerta-fatiga').style.display = 'none';
+        }
+    }
+
+    // --- LÓGICA DE BÚSQUEDA DE CLAVES ---
+    function buscarClave() {
+        let input = document.getElementById("busquedaClave").value.toLowerCase();
+        let filas = document.getElementById("cuerpoClaves").getElementsByTagName("tr");
+
+        for (let i = 0; i < filas.length; i++) {
+            let textoFila = filas[i].textContent.toLowerCase();
+            filas[i].style.display = textoFila.includes(input) ? "" : "none";
+        }
+    }
+
+    // Al cargar la página, verificar si hay un turno activo
+    window.addEventListener('load', () => {
+        if(localStorage.getItem('inicio_turno')) {
+            document.getElementById('btn-inicio').disabled = true;
+            document.getElementById('btn-fin').disabled = false;
+            cronometro = setInterval(actualizarReloj, 1000);
+        }
+    });
+</script>
+
+</body>
+</html>
